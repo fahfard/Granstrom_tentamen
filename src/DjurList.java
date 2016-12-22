@@ -18,7 +18,7 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 		checkDjurlist();
 	}
 	
-	public void addDjur(){ // test
+	public void addDjur(){ 
 		String indata = showInputDialog(null, "Skriv in djur och läte (e.g Ko,Mu): ");
 		
 		try{
@@ -48,7 +48,7 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 		
 		Set<String> LinkedSet = new LinkedHashSet<String>(bufferedList);  // create LinkedHashset to eliminate duplicates
 		
-		for(String lines: LinkedSet){ // for testing purposes; print HashSet
+		for(String lines: LinkedSet){ // for testing purposes; print LinkedHashSet
 			System.out.println(lines);
 		}
 		
