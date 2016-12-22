@@ -19,7 +19,7 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 	}
 	
 	public void addDjur(){ 
-		String indata = showInputDialog(null, "Skriv in djur och l√§te (e.g Ko,Mu): ");
+		String indata = showInputDialog(null, "Skriv in djur och l‰te (e.g Ko,Mu): ");
 		
 		try{
 			if(indata != null){ // in case empty input or cancel
@@ -65,7 +65,7 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 	        br.readLine(); // read the first line
 	        
 	        while ((line = br.readLine()) != null) {
-				if(line != null){	// incase file is empty
+				if(line != null){	// in case file is empty
 	            	String[] djurandSound = line.split(",");
 					
 	            	Djur djur = new Djur(djurandSound[0], djurandSound[1]);
