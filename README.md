@@ -6,13 +6,13 @@ Menageri är ett spel för 4 eller fler deltagare, med 52 vanliga spelkort. Alla
 
 >Moment 1: 1p. Skapa en klass Djur med två instansvariabler. Denna klass ska ha en metod skrivUt som skriver ut vilken typ av djur och vilket läte på samma rad som djur - läte, t.ex. ko - mu, alltså inte på skilda rader.
 
-Moment 2: 3p. Skapa en klass DjurList som läser in en fil med följande struktur: på den första raden ett nummer n som visar hur många rader det finns i filen. På de följande n raderna par av formen djur,läte, dvs. två strängar separarade med kommatecken. Klassen ska skapa en lista av Djur-objekt med alla djur och deras läten från filen. Du kan själv välja vilken typ av lista som skapas, och du bör motivera ditt val. Du bör också implementera eventuella andra metoder som du behöver i spelet.
+>Moment 2: 3p. Skapa en klass DjurList som läser in en fil med följande struktur: på den första raden ett nummer n som visar hur många rader det finns i filen. På de följande n raderna par av formen djur,läte, dvs. två strängar separarade med kommatecken. Klassen ska skapa en lista av Djur-objekt med alla djur och deras läten från filen. Du kan själv välja vilken typ av lista som skapas, och du bör motivera ditt val. Du bör också implementera eventuella andra metoder som du behöver i spelet.
 
-BONUS 1p. Kontrollera att det inte finns mer än ett djur av samma typ, och eliminera duplikat.
+>BONUS 1p. Kontrollera att det inte finns mer än ett djur av samma typ, och eliminera duplikat.
 
-Moment 3: 1p. Skapa en metod som visar ett grafiskt gränssnitt med dialogrutor som låter en mata in ett nytt par av djur och läte, och lägger till detta till listan som redan skapades i Moment 2. Ifall du inte kunde lösa Moment 2, skapa istället en ny lista.
+>Moment 3: 1p. Skapa en metod som visar ett grafiskt gränssnitt med dialogrutor som låter en mata in ett nytt par av djur och läte, och lägger till detta till listan som redan skapades i Moment 2. Ifall du inte kunde lösa Moment 2, skapa istället en ny lista.
 
-Moment 4: 1p. Skapa ett gränssnitt SpelKortGränssnitt med följande attribut: färg (kan vara de följande: hjärta, spader, ruter, klöver) och valör (kan vara de följande: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J ,Q, K). Du kan själv välja standardvärdet för färg och valör. Ditt interface bör ha följande metoder: getFärg(), getValör() och skrivUt().
+>Moment 4: 1p. Skapa ett gränssnitt SpelKortGränssnitt med följande attribut: färg (kan vara de följande: hjärta, spader, ruter, klöver) och valör (kan vara de följande: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J ,Q, K). Du kan själv välja standardvärdet för färg och valör. Ditt interface bör ha följande metoder: getFärg(), getValör() och skrivUt().
 
 Moment 5: 1p. Skapa en klass SpelKort som implementerar ditt gränssnitt från Moment 4. Du kan lägga till ytterligare fält, beroende på hur du vill hålla reda på vilka kort som har vänts upp eller inte för varje spelare.
 
