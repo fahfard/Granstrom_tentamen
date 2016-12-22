@@ -12,7 +12,7 @@ Menageri är ett spel för 4 eller fler deltagare, med 52 vanliga spelkort. Alla
 
 >Moment 3: 1p. Skapa en metod som visar ett grafiskt gränssnitt med dialogrutor som låter en mata in ett nytt par av djur och läte, och lägger till detta till listan som redan skapades i Moment 2. Ifall du inte kunde lösa Moment 2, skapa istället en ny lista.
 
-Moment 4: 1p. Skapa ett gränssnitt SpelKortGränssnitt med följande attribut: färg (kan vara de följande: hjärta, spader, ruter, klöver) och valör (kan vara de följande: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J ,Q, K). Du kan själv välja standardvärdet för färg och valör. Ditt interface bör ha följande metoder: getFärg(), getValör() och skrivUt().
+>Moment 4: 1p. Skapa ett gränssnitt SpelKortGränssnitt med följande attribut: färg (kan vara de följande: hjärta, spader, ruter, klöver) och valör (kan vara de följande: A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J ,Q, K). Du kan själv välja standardvärdet för färg och valör. Ditt interface bör ha följande metoder: getFärg(), getValör() och skrivUt().
 
 Moment 5: 1p. Skapa en klass SpelKort som implementerar ditt gränssnitt från Moment 4. Du kan lägga till ytterligare fält, beroende på hur du vill hålla reda på vilka kort som har vänts upp eller inte för varje spelare.
 
