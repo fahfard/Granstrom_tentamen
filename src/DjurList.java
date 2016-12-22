@@ -10,7 +10,7 @@ import static javax.swing.JOptionPane.*;
 
 public class DjurList {
 
-private List<Djur> djurLists = new ArrayList<Djur>();
+	private List<Djur> djurLists = new ArrayList<Djur>();
 	
 	public void getDjurlist(){
 		loadDjur();
@@ -51,6 +51,8 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 		for(String lines: LinkedSet){ // for testing purposes; print LinkedHashSet
 			System.out.println(lines);
 		}
+		
+		// TODO: Write method to read in hash set into arraylist of type Djur
 		
 	}
 
