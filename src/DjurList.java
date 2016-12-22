@@ -18,7 +18,7 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 		checkDjurlist();
 	}
 	
-	public void addDjur(){
+	public void addDjur(){ // test
 		String indata = showInputDialog(null, "Skriv in djur och läte (e.g Ko,Mu): ");
 		
 		try{
