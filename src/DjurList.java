@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+import static javax.swing.JOptionPane.*;
 
 public class DjurList {
 
@@ -14,12 +14,29 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 	
 	public void getDjurlist(){
 		loadDjur();
+		addDjur();
 		checkDjurlist();
+	}
+	
+	public void addDjur(){
+		String indata = showInputDialog(null, "Skriv in djur och läte (e.g Ko,Mu): ");
+		
+		try{
+			if(indata != null){ // in case empty input or cancel
+				String djurSound[] = indata.split(",");
+				
+				Djur djur = new Djur(djurSound[0], djurSound[1]);
+				
+				djurLists.add(djur);
+			}
+		} catch (Exception e){
+			System.out.println(e);
+		}
 	}
 	
 	public void checkDjurlist(){
 		
-		List<String> bufferedList = new ArrayList<String>(); // create a buffered Lits of type string for sorting
+		List<String> bufferedList = new ArrayList<String>(); // create a buffered List of type string for sorting
 		
 		String tempStringbuffer = "";
 		
