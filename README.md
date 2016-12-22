@@ -16,7 +16,7 @@ Menageri är ett spel för 4 eller fler deltagare, med 52 vanliga spelkort. Alla
 
 >Moment 5: 1p. Skapa en klass SpelKort som implementerar ditt gränssnitt från Moment 4. Du kan lägga till ytterligare fält, beroende på hur du vill hålla reda på vilka kort som har vänts upp eller inte för varje spelare.
 
-Moment 6: 2p. Skapa en abstrakt klass Person med följande attribut: namn (en sträng), ID (en sträng i följande format: 6 siffror, ett bindestreck, och 4 ytterligare siffror). Klassen ska ha följande metoder: getName() som returnerar namnet, getID() som returnerar ID, och skrivUt() som skriver ut namnet följt av ett mellanslag och därefter ID.
+>Moment 6: 2p. Skapa en abstrakt klass Person med följande attribut: namn (en sträng), ID (en sträng i följande format: 6 siffror, ett bindestreck, och 4 ytterligare siffror). Klassen ska ha följande metoder: getName() som returnerar namnet, getID() som returnerar ID, och skrivUt() som skriver ut namnet följt av ett mellanslag och därefter ID.
 
 Moment 7: 7p. Skapa en klass Spelare som utökar (extends) den abstrakta klassen Person och har två ytterligare fält för att representera de kort som var vänts och inte vänts (typ SpelKort, och du väljer själv vilket slags lista du använder), djuret som spelaren representerar, spelarNu (ett booleskt värde som representerar om spelaren fortfarande spelar; ska vara FALSE när spelaren inte har några kort kvar). Implementera metoder för att:
 
