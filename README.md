@@ -32,7 +32,7 @@ Moment 8: 14p. I main-klassen, gör följande (du får skapa och använda ytterl
 
 Läs in en fil med par av djur-läte och skapa en DjurList med dem.
 Låt användaren mata in, i ett grafiskt gränssnitt, antalet spelare i form av ett nummer mellan 4 och 10. Om numret som matades in inte är mellan 4 och 10, fråga efter ett nytt nummer.
-Fråga efter information för så många personer som numret som nyss matades in, och *_skapa ett Spelare-objekt för varje person. Du kan själv välja vilket slags lista du vill använda för att hålla reda på spelarna. Den ording i vilken de matas in kommer att användas som den ordning i vilken de spelar._*
+Fråga efter information för så många personer som numret som nyss matades in, och *__skapa ett Spelare-objekt för varje person. Du kan själv välja vilket slags lista du vill använda för att hålla reda på spelarna. Den ording i vilken de matas in kommer att användas som den ordning i vilken de spelar.__*
 Om antalet spelare är större än antalet unika par av djur-läte som har lästs in från filen, ha användaren att mata in nya par av djur-läte så att det finns minst lika många som antalet spelare. Testa att de nya inmatade paren av djur-läte inte är samma som något tidigare. Tilldela varje spelare slumpvis ett djur-läte-par.
 2p:
 
