@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DjurList {
 
@@ -18,14 +19,22 @@ private List<Djur> djurLists = new ArrayList<Djur>();
 	
 	public void checkDjurlist(){
 		
-		Set<Djur> bufferedList = new LinkedHashSet<Djur>(djurLists);
-		djurLists.clear();
-		List<Djur> finalList = new ArrayList<Djur>(bufferedList);
-		bufferedList.clear();
+		List<String> bufferedList = new ArrayList<String>(); // create a buffered Lits of type string for sorting
 		
-		for(Djur lines: finalList){
+		String tempStringbuffer = "";
+		
+		for(Djur lines: djurLists){ // copy elements
+			tempStringbuffer += lines;
+			bufferedList.add(tempStringbuffer);
+			tempStringbuffer = "";
+		}
+		
+		Set<String> LinkedSet = new LinkedHashSet<String>(bufferedList);  // create LinkedHashset to eliminate duplicates
+		
+		for(String lines: LinkedSet){ // for testing purposes; print HashSet
 			System.out.println(lines);
 		}
+		
 	}
 
 	public void loadDjur() {

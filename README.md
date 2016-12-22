@@ -1,10 +1,10 @@
 # Granstrom_tentamen
 Programmerings tentamen
 
-Uppgiften: att simulera ett Menageri-spel
+>Uppgiften: att simulera ett Menageri-spel
 Menageri är ett spel för 4 eller fler deltagare, med 52 vanliga spelkort. Alla kort utdelas, även om det betyder att vissa spelare får ett kort mer än andra. De utdelade korten läggs med baksidan upp i en hög framför respektive deltagare. Innan själva spelet börjar ska varje spelare välja en djuridentitet åt sig, olika för varje spelare. Spelare till vänster om den som delar ut korten vänder upp sitt översta kort. Sedan gör nästa spelare samma sak, osv. När någon spelare vänder upp ett kort som har samma valör som ett tidigare vänt kort ska man fortast möjligt försöka låta som den spelarens djur. Den som gör detta först får ta samtliga uppvända kort från den spelare som blev härmad, och dessa kort läggs underst i den egna packen. Den som har blivit härmad lägger upp ett nytt kort. Härmar man däremot fel djur så ger man ett kort till den man skulel ha härmat. När en spelares kort är slut vänder spelaren på den hög som ligger uppvänd och börjar om. De spelare som blir av med alla sina kort lämnar spelet. Detta fortsätter tills någon har samtliga kort, och denna spelare vinner spelet.
 
-Moment 1: 1p. Skapa en klass Djur med två instansvariabler. Denna klass ska ha en metod skrivUt som skriver ut vilken typ av djur och vilket läte på samma rad som djur - läte, t.ex. ko - mu, alltså inte på skilda rader.
+>Moment 1: 1p. Skapa en klass Djur med två instansvariabler. Denna klass ska ha en metod skrivUt som skriver ut vilken typ av djur och vilket läte på samma rad som djur - läte, t.ex. ko - mu, alltså inte på skilda rader.
 
 Moment 2: 3p. Skapa en klass DjurList som läser in en fil med följande struktur: på den första raden ett nummer n som visar hur många rader det finns i filen. På de följande n raderna par av formen djur,läte, dvs. två strängar separarade med kommatecken. Klassen ska skapa en lista av Djur-objekt med alla djur och deras läten från filen. Du kan själv välja vilken typ av lista som skapas, och du bör motivera ditt val. Du bör också implementera eventuella andra metoder som du behöver i spelet.
 
