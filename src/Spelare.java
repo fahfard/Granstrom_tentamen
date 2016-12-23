@@ -5,6 +5,12 @@ public class Spelare extends Person{
 	private boolean spelarNu;
 	private int tur;
 	
+	public Spelare(String namn, String ID, String spelareDjur){
+		super.namn = namn;
+		super.ID = ID;
+		this.spelareDjur = spelareDjur;
+	}
+	
 	public void speladeKort(){
 		
 	}

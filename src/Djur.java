@@ -12,14 +12,6 @@ public class Djur {
 		this.animalSound = animalSound;
 	}
 	
-	public static void main(String[] args) {
-		
-		// For testing purposes
-		DjurList djurList = new DjurList();
-		djurList.getDjurlist();
-		
-	}
-	
 	public String toString(){
 		return this.animal + "-" + this.animalSound;
 	}
