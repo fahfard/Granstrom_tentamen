@@ -14,7 +14,7 @@ public class DjurList {
 	
 	public void getDjurlist(){
 		loadDjur();
-		addDjur();
+		//addDjur();
 		checkDjurlist();
 	}
 	
@@ -48,9 +48,9 @@ public class DjurList {
 		
 		Set<String> LinkedSet = new LinkedHashSet<String>(bufferedList);  // create LinkedHashset to eliminate duplicates
 		
-		for(String lines: LinkedSet){ // for testing purposes; print LinkedHashSet
+		/*for(String lines: LinkedSet){ // for testing purposes; print LinkedHashSet
 			System.out.println(lines);
-		}
+		}*/
 		
 		// TODO: Write method to read in hash set into arraylist of type Djur
 		

@@ -4,8 +4,8 @@ public interface SpelKortGranssnitt {
 	String färg = "klöver";
 	String valör = "Q";
 	
-	void getFärg();
-	void getValör();
+	String getFärg(int index);
+	String getValör(int index);
 	void skrivUt();
 	
 }
