@@ -9,10 +9,6 @@ public class main {
 	
 	public static void main(String[] args) {
 		
-		// For testing purposes
-		DjurList djurList = new DjurList();
-		djurList.getDjurlist();
-		
 		int nrOfPlayers = createPlayers();
 		
 		delautKort(nrOfPlayers);
@@ -50,8 +46,15 @@ public class main {
 		for(int i = 0; i < nrOfPlayers; i++){
 			indata = showInputDialog(null, "Enter your name and an ID (e.g 'Joe 123456-1234')");
 			String players[] = indata.split(" ");
-			Spelare spelare = new Spelare(players[0], players[1], "Testanimals");
-			playerList.add(players[0]);
+			
+			DjurList djurList = new DjurList();
+			djurList.getDjurlist();
+			
+			Djur djurAndSound = djurList.getDjurAndSound();
+			
+			Spelare spelare = new Spelare(players[0], players[1], djurAndSound);
+			
+			playerList.add(spelare.getNamn());
 		}
 		return nrOfPlayers;
 	}

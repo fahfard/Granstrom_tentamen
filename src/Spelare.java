@@ -2,11 +2,11 @@ import static javax.swing.JOptionPane.showInputDialog;
 
 public class Spelare extends Person{
 
-	private String spelareDjur;
+	private Djur spelareDjur;
 	private boolean spelarNu;
 	private int tur;
 	
-	public Spelare(String namn, String ID, String spelareDjur){
+	public Spelare(String namn, String ID, Djur spelareDjur){
 		super.namn = namn;
 		super.ID = ID;
 		this.spelareDjur = spelareDjur;

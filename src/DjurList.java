@@ -35,6 +35,15 @@ public class DjurList {
 		}
 	}
 	
+	public Djur getDjurAndSound(){
+		
+		Collections.shuffle(djurLists);
+		Djur tempDjur = djurLists.get(1);
+		djurLists.remove(1);
+		
+		return tempDjur;
+	}
+	
 	public void checkDjurlist(){
 		
 		List<String> bufferedList = new ArrayList<String>(); // create a buffered List of type string for sorting
@@ -56,13 +65,6 @@ public class DjurList {
 			Djur djur = new Djur(djurSound[0], djurSound[1]);
 			djurLists.add(djur);
 		}
-		
-		for(Djur lines: djurLists){
-			System.out.println(lines);
-		}
-		
-		// TODO: Write method to read in hash set into arraylist of type Djur
-		
 	}
 
 	public void loadDjur() {
