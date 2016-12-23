@@ -4,25 +4,25 @@ import java.util.List;
 
 public class SpelKort implements SpelKortGranssnitt {
 	
-	private String färg[] = { "hjärter", "ruter", "klöver", "spader" };
-	private String valör[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" } ;
+	private String farg[] = { "hjarter", "ruter", "klover", "spader" };
+	private String valor[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" } ;
 	
 	private List<Spelare> lagtKort = new ArrayList<Spelare>();
-	private List<Spelare> vändtKort = new ArrayList<Spelare>();
+	private List<Spelare> vandtKort = new ArrayList<Spelare>();
 	private List<String> kortPacka = new ArrayList<String>();
 	
-	public String getValör(int index){
+	public String getValor(int index){
 		
-		String valör = kortPacka.get(index);
-		String temp[] = valör.split(",");
+		String valor = kortPacka.get(index);
+		String temp[] = valor.split(",");
 		
 		return temp[1];
 	}
 	
-	public String getFärg(int index){
+	public String getFarg(int index){
 		
-		String färg = kortPacka.get(index);
-		String temp[] = färg.split(",");
+		String farg = kortPacka.get(index);
+		String temp[] = farg.split(",");
 		
 		return temp[0];
 	}
@@ -39,9 +39,9 @@ public class SpelKort implements SpelKortGranssnitt {
 	}
 	
 	public void createDeck(){
-		 for(String färger: färg){
-			 for(String valörer: valör){
-				 kortPacka.add(färger + "," + valörer);
+		 for(String farger: farg){
+			 for(String valorer: valor){
+				 kortPacka.add(farger + "," + valorer);
 			 }
 		 }
 		 Collections.shuffle(kortPacka); // shuffle the deck

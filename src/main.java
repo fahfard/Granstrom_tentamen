@@ -28,7 +28,7 @@ public class main {
 	
 		while(i < 52){
 			for(int j = 0; j < nrOfPlayers; j++){		
-				kortLista.add("Spelare" + (j+1) + ":" + spelkort.getFärg(i) + " " + spelkort.getValör(i));
+				kortLista.add("Spelare" + (j+1) + ":" + spelkort.getFarg(i) + " " + spelkort.getValor(i));
 				i++;
 				if(i >= 52)
 					break;

@@ -19,7 +19,7 @@ public class Spelare extends Person{
 		
 	}
 	
-	public void djurLäte(){
+	public void djurLate(){
 		
 	}
 	
