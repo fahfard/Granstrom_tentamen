@@ -1,3 +1,4 @@
+import static javax.swing.JOptionPane.showInputDialog;
 
 public class Spelare extends Person{
 
@@ -22,6 +23,8 @@ public class Spelare extends Person{
 	public void djurLate(){
 		
 	}
+	
+	
 	
 	public int vemsTur(){
 		this.tur = tur;

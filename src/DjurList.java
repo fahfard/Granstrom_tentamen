@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class DjurList {
 	}
 	
 	public void addDjur(){ 
-		String indata = showInputDialog(null, "Skriv in djur och läte (e.g Ko,Mu): ");
+		String indata = showInputDialog(null, "Skriv in djur och lï¿½te (e.g Ko,Mu): ");
 		
 		try{
 			if(indata != null){ // in case empty input or cancel
@@ -46,11 +47,19 @@ public class DjurList {
 			tempStringbuffer = "";
 		}
 		
+		djurLists.clear(); // empty djurLists
+		
 		Set<String> LinkedSet = new LinkedHashSet<String>(bufferedList);  // create LinkedHashset to eliminate duplicates
 		
-		/*for(String lines: LinkedSet){ // for testing purposes; print LinkedHashSet
+		for(String lines: LinkedSet){ // for testing purposes; print LinkedHashSet			
+			String djurSound[] = lines.split("-");
+			Djur djur = new Djur(djurSound[0], djurSound[1]);
+			djurLists.add(djur);
+		}
+		
+		for(Djur lines: djurLists){
 			System.out.println(lines);
-		}*/
+		}
 		
 		// TODO: Write method to read in hash set into arraylist of type Djur
 		
