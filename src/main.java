@@ -41,22 +41,47 @@ public class main {
 	public static int createPlayers(){
 		
 		String indata = showInputDialog(null, "Enter number of players: ");
-		int nrOfPlayers = Integer.parseInt(indata);
 		
-		for(int i = 0; i < nrOfPlayers; i++){
-			indata = showInputDialog(null, "Enter your name and an ID (e.g 'Joe 123456-1234')");
-			String players[] = indata.split(" ");
-			
-			DjurList djurList = new DjurList();
-			djurList.getDjurlist();
-			
-			Djur djurAndSound = djurList.getDjurAndSound();
-			
-			Spelare spelare = new Spelare(players[0], players[1], djurAndSound);
-			
-			playerList.add(spelare.getNamn());
+		if(indata != null){
+			int nrOfPlayers = Integer.parseInt(indata);
+			if(nrOfPlayers >= 4 && nrOfPlayers <= 10){
+				
+				DjurList djurList = new DjurList();
+				djurList.getDjurlist();
+				
+				for(int i = 0; i < nrOfPlayers; i++){
+					if(djurList.getListSize() < nrOfPlayers){
+						int temp = nrOfPlayers - djurList.getListSize();
+						for(int j = 0; j < temp; j++){
+							djurList.addDjur();
+						}
+						djurList.checkDjurlist();
+					}
+					
+					indata = showInputDialog(null, "Enter your name and an ID (e.g 'Joe 123456-1234')");
+					if(indata != null){
+						
+						String players[] = indata.split(" ");
+						Djur djurAndSound = djurList.getDjurAndSound();
+						
+						Spelare spelare = new Spelare(players[0], players[1], djurAndSound);
+						
+						playerList.add(spelare.getNamn());
+					} else {
+						showMessageDialog(null, "Empty input or cancel. Terminating.");
+						System.exit(0);
+					}
+				}
+			} else {
+				showMessageDialog(null, "Fel antal spelare. Skriv in ett antal mellan 4 och 10");
+				createPlayers(); // recursive call to try again
+			}
+			return nrOfPlayers;
+		} else {
+			showMessageDialog(null, "No input. Terminating.");
+			System.exit(0); // if no input or cancel then terminate
 		}
-		return nrOfPlayers;
+		return 0;
 	}
 }
 

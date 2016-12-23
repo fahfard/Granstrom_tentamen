@@ -12,6 +12,7 @@ import static javax.swing.JOptionPane.*;
 public class DjurList {
 
 	private List<Djur> djurLists = new ArrayList<Djur>();
+	private int listSize;
 	
 	public void getDjurlist(){
 		loadDjur();
@@ -29,6 +30,7 @@ public class DjurList {
 				Djur djur = new Djur(djurSound[0], djurSound[1]);
 				
 				djurLists.add(djur);
+				listSize++;
 			}
 		} catch (Exception e){
 			System.out.println(e);
@@ -37,15 +39,16 @@ public class DjurList {
 	
 	public Djur getDjurAndSound(){
 		
+		
 		Collections.shuffle(djurLists);
-		Djur tempDjur = djurLists.get(1);
+		Djur tempDjur = djurLists.get(1);	
 		djurLists.remove(1);
 		
 		return tempDjur;
 	}
 	
 	public void checkDjurlist(){
-		
+	
 		List<String> bufferedList = new ArrayList<String>(); // create a buffered List of type string for sorting
 		
 		String tempStringbuffer = "";
@@ -65,7 +68,16 @@ public class DjurList {
 			Djur djur = new Djur(djurSound[0], djurSound[1]);
 			djurLists.add(djur);
 		}
+		
+		if(djurLists.size() != listSize)
+			listSize = djurLists.size()+1;
+		
 	}
+	
+	public int getListSize(){
+		return listSize;	
+	}
+	
 
 	public void loadDjur() {
 		String csvFile = "djur.txt";
@@ -75,7 +87,7 @@ public class DjurList {
 	    try {
 	        br = new BufferedReader(new FileReader(csvFile));
 	
-	        br.readLine(); // read the first line
+	        listSize = Integer.parseInt(br.readLine()); // read the first line and save listSize
 	        
 	        while ((line = br.readLine()) != null) {
 				if(line != null){	// in case file is empty
