@@ -41,10 +41,17 @@ public class DjurList {
 		
 		
 		Collections.shuffle(djurLists);
-		Djur tempDjur = djurLists.get(1);	
-		djurLists.remove(1);
+
+		while(djurLists.size() > 2){
 		
-		return tempDjur;
+			Djur tempDjur = djurLists.get(1);	
+			djurLists.remove(1);
+			
+			return tempDjur;
+			
+		}
+		
+		return djurLists.get(1);
 	}
 	
 	public void checkDjurlist(){

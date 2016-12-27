@@ -1,7 +1,5 @@
-6
+4
 Katt,Mjau
 Hund,Woff
 Ko,Mu
 Lamm,Baa
-Fagel,Kvitt
-Ko,Mu

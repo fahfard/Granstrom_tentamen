@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import static javax.swing.JOptionPane.*;
 
@@ -12,6 +13,9 @@ public class main {
 		int nrOfPlayers = createPlayers();
 		
 		delautKort(nrOfPlayers);
+		
+		Collections.sort(playerList);
+		
 		skrivUt();
 		System.out.println(kortLista.size()); // for testing purposes
 	}
@@ -66,7 +70,7 @@ public class main {
 						
 						Spelare spelare = new Spelare(players[0], players[1], djurAndSound);
 						
-						playerList.add(spelare.getNamn());
+						playerList.add(spelare.getNamn() + ", " + spelare.getID() + " - " + djurAndSound);
 					} else {
 						showMessageDialog(null, "Empty input or cancel. Terminating.");
 						System.exit(0);
