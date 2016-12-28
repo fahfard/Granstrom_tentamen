@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
 import static javax.swing.JOptionPane.*;
 
 public class main {
@@ -33,6 +35,9 @@ public class main {
 		
 		boolean foundMatch = false;
 		
+		String fPlayer; 
+		String opponent;
+		
 		String referenceValor = getFirstValor(0, 1);
 		
 		for(int i = 1; i < nrOfPlayers; i++){
@@ -44,15 +49,22 @@ public class main {
 			if(referenceValor.equals(pValors)){
 				System.out.println("Works!");
 				foundMatch = true;
+				
+				/* randomize who wins */
+				fPlayer = kortLista.get(0);
+				opponent = kortLista.get(i);
+				
+				String whoWins[] = {fPlayer, opponent};
+				
+				int randomNum = 0 + (int)(Math.random() * 2); 
+				
+				System.out.println(whoWins[randomNum]); // TODO: add player sounds
+				
+				
 			} else {
 				System.out.println("Nope");
 				
 			}
-			
-		//	kortLista.remove(i);
-		//	kortLista.remove(0); // remove first player also
-			
-			//System.out.println("So is this the next card?: " + kortLista.get(0));
 			
 		}
 		
@@ -62,6 +74,10 @@ public class main {
 				spelkort.speladeKort(kortLista.get(0));
 				kortLista.remove(0);
 			}
+			
+			spelkort.skrivUt();
+			
+		} else {
 			
 		}
 	}

@@ -13,7 +13,6 @@ public class SpelKort implements SpelKortGranssnitt {
 	
 	public void speladeKort(String inKort){
 		vandtKort.add(inKort);
-		System.out.println(inKort);
 	}
 	
 	
@@ -34,7 +33,8 @@ public class SpelKort implements SpelKortGranssnitt {
 	}
 	
 	public void skrivUt(){
-		
+		for(String lines: vandtKort)
+			System.out.println(lines);
 	}
 	
 	public void printCards(){
