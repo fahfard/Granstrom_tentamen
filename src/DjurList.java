@@ -21,7 +21,8 @@ public class DjurList {
 	}
 	
 	public void addDjur(){ 
-		String indata = showInputDialog(null, "Skriv in djur och lï¿½te (e.g Ko,Mu): ");
+	
+		String indata = showInputDialog(null, "Skriv in djur och läte (e.g Ko,Mu): ");
 		
 		try{
 			if(indata != null){ // in case empty input or cancel
@@ -44,14 +45,14 @@ public class DjurList {
 
 		while(djurLists.size() > 2){
 		
-			Djur tempDjur = djurLists.get(1);	
-			djurLists.remove(1);
+			Djur tempDjur = djurLists.get(0);	
+			djurLists.remove(0);
 			
 			return tempDjur;
 			
 		}
 		
-		return djurLists.get(1);
+		return djurLists.get(0);
 	}
 	
 	public void checkDjurlist(){

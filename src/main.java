@@ -10,14 +10,72 @@ public class main {
 	
 	public static void main(String[] args) {
 		
+		boolean game = true; // main loop variable
+		
 		int nrOfPlayers = createPlayers();
 		
 		delautKort(nrOfPlayers);
 		
-		Collections.sort(playerList);
-		
 		skrivUt();
 		System.out.println(kortLista.size()); // for testing purposes
+		
+		while(game){ // main loop
+			
+			
+				checkAndList(nrOfPlayers);
+				game=false;
+					
+			
+		}
+	}
+	
+	private static void checkAndList(int nrOfPlayers){
+		
+		boolean foundMatch = false;
+		
+		String referenceValor = getFirstValor(0, 1);
+		
+		for(int i = 1; i < nrOfPlayers; i++){
+			
+			String pValors = getFirstValor(i, 1);
+			
+			System.out.println(referenceValor + " " + pValors);
+			
+			if(referenceValor.equals(pValors)){
+				System.out.println("Works!");
+				foundMatch = true;
+			} else {
+				System.out.println("Nope");
+				
+			}
+			
+		//	kortLista.remove(i);
+		//	kortLista.remove(0); // remove first player also
+			
+			//System.out.println("So is this the next card?: " + kortLista.get(0));
+			
+		}
+		
+		if(!foundMatch){
+			SpelKort spelkort = new SpelKort();
+			for(int i = 0; i < nrOfPlayers; i++){
+				spelkort.speladeKort(kortLista.get(0));
+				kortLista.remove(0);
+			}
+			
+		}
+	}
+	
+	
+	private static String getFirstValor(int index, int index2){
+			
+				String forstaSpelare = kortLista.get(index);
+				
+				String spelareOchKort[] = forstaSpelare.split(";"); // dela upp listan i spelare, id och djur mot farg och valor
+				String fargOchValor[] = spelareOchKort[1].split(" "); // dela upp farg och valor
+				
+				return fargOchValor[index2];
+		
 	}
 	
 	private static void delautKort(int nrOfPlayers){
@@ -29,7 +87,7 @@ public class main {
 	
 		while(i < 52){
 			for(int j = 0; j < nrOfPlayers; j++){		
-				kortLista.add("Spelare: " + playerList.get(j) + ":" + spelkort.getFarg(i) + " " + spelkort.getValor(i));
+				kortLista.add("Spelare: " + playerList.get(j) + ";" + spelkort.getFarg(i) + " " + spelkort.getValor(i));
 				i++;
 				if(i >= 52)
 					break;
@@ -68,9 +126,10 @@ public class main {
 						String players[] = indata.split(" ");
 						Djur djurAndSound = djurList.getDjurAndSound();
 						
-						Spelare spelare = new Spelare(players[0], players[1], djurAndSound);
+						Spelare spelare = new Spelare(players[0], players[1], djurAndSound, true, i);
 						
-						playerList.add(spelare.getNamn() + ", " + spelare.getID() + " - " + djurAndSound);
+						playerList.add(spelare.getNamn() + ", " + spelare.getID() + " - " + djurAndSound + " Tur: " + i);
+						
 					} else {
 						showMessageDialog(null, "Empty input or cancel. Terminating.");
 						System.exit(0);
