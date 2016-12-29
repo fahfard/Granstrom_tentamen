@@ -12,12 +12,16 @@ public class main {
 	
 	public static SpelKort spelkort = new SpelKort();
 	
-	
-	/*            ______                     ____
-	 * |\	  /| |       |\   |    /\      /  ___|_
-	 * | \	 / | |______ | \  |   /  \    |  / |_  | ERi!
-	 * |  \ /  | |       |  \ |  /____\	  |	 |__|  |
-	 * |   V   | |______ |   \| /      \  \_______/
+	public static String nameAnimal = "";
+	public static int gameCounter = 0;
+									
+	/*															   \ \
+	 *            ______                     ____    ______  ___    
+	 * |\	  /| |       |\   |    /\      /		|       |   \   |
+	 * | \	 / | |______ | \  |   /  \     | _____  |______ |   /   |
+	 * |  \ /  | |       |  \ |  /____\	   |     |  |       |  <    |
+	 * |   V   | |______ |   \| /      \   \_____/  |______ |   \   |
+	 * 
 	 */
 	
 	public static void main(String[] args) {
@@ -30,10 +34,18 @@ public class main {
 		System.out.println(kortLista.size()); // for testing purposes
 		
 		while(game){ // main loop
-							
-			checkAndList(nrOfPlayers);
-			Collections.rotate(kortLista, -1);
-				
+			
+			if(gameCounter < 52 - nrOfPlayers){
+				checkAndList(nrOfPlayers);
+				Collections.rotate(kortLista, -1);
+				gameCounter++;
+				showMessageDialog(null, "No one wins. Press ok to continue!");
+			} else {
+				System.out.println("We've made it here! Card Count: " + gameCounter);
+				game=false;
+				skrivUt();
+			}
+			
 		}
 		
 	}
@@ -45,12 +57,10 @@ public class main {
 		String fPlayer; 
 		String opponent;
 		
-		String nameAnimal = "";
-		
 		String referenceValor = getFirstValor(0, 1);
 		
 		int counter = 1;
-		
+			
 		for(int i = 1; i < nrOfPlayers; i++){
 			
 			String pValors = getFirstValor(i, 1);
@@ -71,9 +81,10 @@ public class main {
 				int randomNum = 0 + (int)(Math.random() * 2); 
 				
 				String playerID[] = whoWins[randomNum].split(";");
-				System.out.println(playerID[0] + "<--- Winner!");// TODO: add player sounds
 				
 				nameAnimal = playerID[0]; // keep track of who wins
+				
+				System.out.println("Winner: " + nameAnimal);
 	
 				counter++;
 				break;
@@ -92,6 +103,7 @@ public class main {
 			for(int i = 0; i < nrOfPlayers; i++){
 				spelkort.speladeKort(kortLista.get(0));
 				kortLista.remove(0);
+				gameCounter++;
 			}
 			
 			spelkort.skrivUt();
@@ -101,23 +113,25 @@ public class main {
 			for(int j = 0; j < counter; j++){ // counter instead of nrOfPlayers cause win might have interrupted the round
 				spelkort.speladeKort(kortLista.get(0));
 				kortLista.remove(0);
+				gameCounter++;
 			}
 			
 			counter = 0;
 			
-			System.out.println(spelkort.getSpeladeKortSize());
+			spelkort.reverseList(); // korten i rätt ordning
 			
 			for(int i = 0; i < spelkort.getSpeladeKortSize(); i++){
 				
 				String fargOvalor[] = spelkort.getSpeladeKort(i).split(" ");
 				kortLista.add(nameAnimal + ";" + fargOvalor[0] + " " + fargOvalor[1]);
 			}
+			 
+			spelkort.resetList(); // töm listan
 			
-			spelkort.reverseList(); // korten i rätt ordning
-			
+			System.out.println(gameCounter);
 			skrivUt();
-			System.exit(0);
 		}
+	
 	}
 	
 	

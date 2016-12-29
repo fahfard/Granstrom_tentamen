@@ -18,7 +18,9 @@ public class SpelKort implements SpelKortGranssnitt {
 		
 		vandtKort.add(fargValor[0] + " " + fargValor[1]);
 	}
-	
+	public void resetList(){
+		vandtKort.clear();
+	}
 	public String getSpeladeKort(int index){
 		return vandtKort.get(index);
 	}
