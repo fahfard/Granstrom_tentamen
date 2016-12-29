@@ -12,7 +12,7 @@ public class main {
 	
 	public static SpelKort spelkort = new SpelKort();
 	
-	public static String nameAnimal = "";
+	public static String winner = "", looser = "";
 	public static int gameCounter = 0;
 									
 	/*															   \ \
@@ -36,14 +36,18 @@ public class main {
 		while(game){ // main loop
 			
 			if(gameCounter < 52 - nrOfPlayers){
+				
 				checkAndList(nrOfPlayers);
 				Collections.rotate(kortLista, -1);
 				gameCounter++;
 				showMessageDialog(null, "No one wins. Press ok to continue!");
+				
 			} else {
+				
 				System.out.println("We've made it here! Card Count: " + gameCounter);
 				game=false;
 				skrivUt();
+				
 			}
 			
 		}
@@ -82,10 +86,17 @@ public class main {
 				
 				String playerID[] = whoWins[randomNum].split(";");
 				
-				nameAnimal = playerID[0]; // keep track of who wins
+				winner = playerID[0]; // keep track of who wins
 				
-				System.out.println("Winner: " + nameAnimal);
-	
+				if(winner.equals(fPlayer)){
+					looser = opponent;
+				} else if (winner.equals(opponent)){
+					looser = fPlayer;
+				}
+				
+				System.out.println("Winner: " + winner);
+				System.out.println("Looser: " + looser);
+				
 				counter++;
 				break;
 				
@@ -122,12 +133,18 @@ public class main {
 			
 			for(int i = 0; i < spelkort.getSpeladeKortSize(); i++){
 				
-				String fargOvalor[] = spelkort.getSpeladeKort(i).split(" ");
-				kortLista.add(nameAnimal + ";" + fargOvalor[0] + " " + fargOvalor[1]);
+				String spelkortSpelareKort[] = spelkort.getSpeladeKort(i).split(";");
+				String fargOvalor[] = spelkortSpelareKort[1].split(" ");
+				
+				if(spelkortSpelareKort[0].equals(winner)||spelkortSpelareKort[0].equals(looser)){
+					kortLista.add(winner + ";" + fargOvalor[0] + " " + fargOvalor[1]);
+					spelkort.removeEntry(i);
+				}
 			}
 			 
-			spelkort.resetList(); // töm listan
+			//spelkort.resetList(); // töm listan
 			
+			spelkort.skrivUt();
 			System.out.println(gameCounter);
 			skrivUt();
 		}

@@ -16,7 +16,11 @@ public class SpelKort implements SpelKortGranssnitt {
 		String spelaresKort[] = inKort.split(";");
 		String fargValor[] = spelaresKort[1].split(" ");
 		
-		vandtKort.add(fargValor[0] + " " + fargValor[1]);
+		vandtKort.add(spelaresKort[0] + ";" + fargValor[0] + " " + fargValor[1]);
+	}
+	
+	public void removeEntry(int index){
+		vandtKort.remove(index);
 	}
 	public void resetList(){
 		vandtKort.clear();
