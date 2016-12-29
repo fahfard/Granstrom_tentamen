@@ -13,7 +13,6 @@ public class main {
 	public static SpelKort spelkort = new SpelKort();
 	
 	public static String winner = "", looser = "";
-	public static int gameCounter = 0;
 									
 	/*															   \ \
 	 *            ______                     ____    ______  ___    
@@ -28,6 +27,8 @@ public class main {
 		
 		boolean game = true; // main loop variable
 		
+		int theTurn = 0, checkIfCounter = 0;
+		
 		int nrOfPlayers = createPlayers();
 		delautKort(nrOfPlayers);
 	
@@ -35,17 +36,33 @@ public class main {
 		
 		while(game){ // main loop
 			
-			if(gameCounter < 52){
+			String temp[] = kortLista.get(0).split(";");
+			String temp2[] = temp[0].split(",");
+			String nextPlayer[] = temp2[0].split(": ");
+			String inTurn[] = playerList.get(theTurn).split(",");
+
+			if(inTurn[0].equals(nextPlayer[1])){
 				
 				checkAndList(nrOfPlayers);
-				Collections.rotate(kortLista, -1);
-				gameCounter++;
 				showMessageDialog(null, "No one wins. Press ok to continue!");
-			} else {
 				
-				System.out.println("We've made it here! Card Count: " + gameCounter);
-				game=false;
+				if(theTurn < nrOfPlayers-1){ // keep track of who's in turn 
+					theTurn++;  
+				} else {
+					theTurn = 0;
+				}
+									
+			} else {
+				Collections.rotate(kortLista, -1); //rotate list to find next player
+				System.out.println("Shuffled");
+				
+				if(checkIfCounter >= nrOfPlayers){
+					playerList.remove(theTurn);
+					nrOfPlayers--;
+				}
+				checkIfCounter++;
 			}
+			checkIfCounter = 0;
 		}
 	}	
 	
@@ -106,7 +123,6 @@ public class main {
 			for(int i = 0; i < nrOfPlayers; i++){
 				spelkort.speladeKort(kortLista.get(0));
 				kortLista.remove(0);
-				gameCounter++;
 			}
 			
 			spelkort.skrivUt();
@@ -118,7 +134,6 @@ public class main {
 			for(int j = 0; j < counter; j++){ // counter instead of nrOfPlayers cause win might have interrupted the round
 				spelkort.speladeKort(kortLista.get(0));
 				kortLista.remove(0);
-				gameCounter++;
 			}
 			
 			spelkort.reverseList(); // korten i rätt ordning
@@ -133,10 +148,8 @@ public class main {
 					spelkort.removeEntry(k);
 					k=0; // to ensure the whole list is checked
 				}
-			}
-			 
-			//spelkort.resetList(); // töm listan
-			
+			} 
+				
 			spelkort.skrivUt();
 			System.out.println("-----kortLista------");
 			skrivUt();
