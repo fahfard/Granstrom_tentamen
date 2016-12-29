@@ -23,6 +23,10 @@ public class SpelKort implements SpelKortGranssnitt {
 		return vandtKort.get(index);
 	}
 	
+	public void reverseList(){
+		Collections.reverse(vandtKort);
+	}
+	
 	public int getSpeladeKortSize(){
 		return vandtKort.size();
 	}

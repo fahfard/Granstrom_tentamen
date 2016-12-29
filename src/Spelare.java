@@ -1,4 +1,3 @@
-import static javax.swing.JOptionPane.showInputDialog;
 
 public class Spelare extends Person{
 
@@ -13,20 +12,6 @@ public class Spelare extends Person{
 		this.spelarNu = spelarNu;
 		this.tur = tur;
 	}
-	
-	public void speladeKort(){
-		
-	}
-	
-	public void adderaPackan(){
-		
-	}
-	
-	public void djurLate(){
-		
-	}
-	
-	
 	
 	public int vemsTur(){
 		this.tur = tur;

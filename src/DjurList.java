@@ -16,7 +16,6 @@ public class DjurList {
 	
 	public void getDjurlist(){
 		loadDjur();
-		//addDjur();
 		checkDjurlist();
 	}
 	
@@ -88,34 +87,40 @@ public class DjurList {
 	
 
 	public void loadDjur() {
+		
 		String csvFile = "djur.txt";
 	    BufferedReader br = null;
 	    String line = "";
 	
 	    try {
-	        br = new BufferedReader(new FileReader(csvFile));
+	    	
+	    	br = new BufferedReader(new FileReader(csvFile));
 	
 	        listSize = Integer.parseInt(br.readLine()); // read the first line and save listSize
 	        
 	        while ((line = br.readLine()) != null) {
-				if(line != null){	// in case file is empty
+	        	if(line != null){	// in case file is empty
 	            	String[] djurandSound = line.split(",");
 					
 	            	Djur djur = new Djur(djurandSound[0], djurandSound[1]);
 					this.djurLists.add(djur);
-					
 				}
 			} 
+	    
 	    } catch (FileNotFoundException e) {
 	        e.printStackTrace();
+	    
 	    } catch (IOException e) {
 	        e.printStackTrace();
+	    
 	    } finally {
 	        if (br != null) {
 	            try {
 	                br.close();
+	           
 	            } catch (IOException e) {
 	                e.printStackTrace();
+	            
 	            }
 	    	}
 		}

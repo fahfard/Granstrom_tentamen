@@ -12,23 +12,28 @@ public class main {
 	
 	public static SpelKort spelkort = new SpelKort();
 	
+	
+	/*            ______                     ____
+	 * |\	  /| |       |\   |    /\      /  ___|_
+	 * | \	 / | |______ | \  |   /  \    |  / |_  | ERi!
+	 * |  \ /  | |       |  \ |  /____\	  |	 |__|  |
+	 * |   V   | |______ |   \| /      \  \_______/
+	 */
+	
 	public static void main(String[] args) {
 		
 		boolean game = true; // main loop variable
 		
 		int nrOfPlayers = createPlayers();
-		
 		delautKort(nrOfPlayers);
-		
 	
 		System.out.println(kortLista.size()); // for testing purposes
 		
 		while(game){ // main loop
-			
-			
-				checkAndList(nrOfPlayers);
+							
+			checkAndList(nrOfPlayers);
+			Collections.rotate(kortLista, -1);
 				
-				Collections.rotate(kortLista, -1);
 		}
 		
 	}
@@ -68,7 +73,8 @@ public class main {
 				String playerID[] = whoWins[randomNum].split(";");
 				System.out.println(playerID[0] + "<--- Winner!");// TODO: add player sounds
 				
-				nameAnimal = playerID[0];
+				nameAnimal = playerID[0]; // keep track of who wins
+	
 				counter++;
 				break;
 				
@@ -106,6 +112,9 @@ public class main {
 				String fargOvalor[] = spelkort.getSpeladeKort(i).split(" ");
 				kortLista.add(nameAnimal + ";" + fargOvalor[0] + " " + fargOvalor[1]);
 			}
+			
+			spelkort.reverseList(); // korten i rätt ordning
+			
 			skrivUt();
 			System.exit(0);
 		}
@@ -145,11 +154,13 @@ public class main {
 			System.out.println(lines);
 		}
 	}
+	
 	public static int createPlayers(){
 		
 		String indata = showInputDialog(null, "Enter number of players: ");
 		
 		if(indata != null){
+			
 			int nrOfPlayers = Integer.parseInt(indata);
 			if(nrOfPlayers >= 4 && nrOfPlayers <= 10){
 				
@@ -157,11 +168,14 @@ public class main {
 				djurList.getDjurlist();
 				
 				for(int i = 0; i < nrOfPlayers; i++){
+					
 					if(djurList.getListSize() < nrOfPlayers){
 						int temp = nrOfPlayers - djurList.getListSize();
+						
 						for(int j = 0; j < temp; j++){
 							djurList.addDjur();
 						}
+						
 						djurList.checkDjurlist();
 					}
 					
@@ -176,19 +190,29 @@ public class main {
 						playerList.add(spelare.getNamn() + ", " + spelare.getID() + " - " + djurAndSound + " Tur: " + i);
 						
 					} else {
+						
 						showMessageDialog(null, "Empty input or cancel. Terminating.");
 						System.exit(0);
+						
 					}
 				}
+				
 			} else {
+				
 				showMessageDialog(null, "Fel antal spelare. Skriv in ett antal mellan 4 och 10");
 				createPlayers(); // recursive call to try again
+				
 			}
+			
 			return nrOfPlayers;
+			
 		} else {
+			
 			showMessageDialog(null, "No input. Terminating.");
 			System.exit(0); // if no input or cancel then terminate
+			
 		}
+		
 		return 0;
 	}
 }
