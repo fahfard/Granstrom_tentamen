@@ -12,9 +12,20 @@ public class SpelKort implements SpelKortGranssnitt {
 	private List<String> kortPacka = new ArrayList<String>();
 	
 	public void speladeKort(String inKort){
-		vandtKort.add(inKort);
+
+		String spelaresKort[] = inKort.split(";");
+		String fargValor[] = spelaresKort[1].split(" ");
+		
+		vandtKort.add(fargValor[0] + " " + fargValor[1]);
 	}
 	
+	public String getSpeladeKort(int index){
+		return vandtKort.get(index);
+	}
+	
+	public int getSpeladeKortSize(){
+		return vandtKort.size();
+	}
 	
 	public String getValor(int index){
 		

@@ -10,6 +10,8 @@ public class main {
 	private static List<String> kortLista = new ArrayList<String>();
 	private static List<String> playerList = new ArrayList<String>();
 	
+	public static SpelKort spelkort = new SpelKort();
+	
 	public static void main(String[] args) {
 		
 		boolean game = true; // main loop variable
@@ -18,17 +20,17 @@ public class main {
 		
 		delautKort(nrOfPlayers);
 		
-		skrivUt();
+	
 		System.out.println(kortLista.size()); // for testing purposes
 		
 		while(game){ // main loop
 			
 			
 				checkAndList(nrOfPlayers);
-				game=false;
-					
-			
+				
+				Collections.rotate(kortLista, -1);
 		}
+		
 	}
 	
 	private static void checkAndList(int nrOfPlayers){
@@ -38,19 +40,24 @@ public class main {
 		String fPlayer; 
 		String opponent;
 		
+		String nameAnimal = "";
+		
 		String referenceValor = getFirstValor(0, 1);
+		
+		int counter = 1;
 		
 		for(int i = 1; i < nrOfPlayers; i++){
 			
 			String pValors = getFirstValor(i, 1);
-			
 			System.out.println(referenceValor + " " + pValors);
 			
 			if(referenceValor.equals(pValors)){
+				
 				System.out.println("Works!");
 				foundMatch = true;
 				
 				/* randomize who wins */
+				
 				fPlayer = kortLista.get(0);
 				opponent = kortLista.get(i);
 				
@@ -58,10 +65,16 @@ public class main {
 				
 				int randomNum = 0 + (int)(Math.random() * 2); 
 				
-				System.out.println(whoWins[randomNum]); // TODO: add player sounds
+				String playerID[] = whoWins[randomNum].split(";");
+				System.out.println(playerID[0] + "<--- Winner!");// TODO: add player sounds
 				
+				nameAnimal = playerID[0];
+				counter++;
+				break;
 				
 			} else {
+				
+				counter++;
 				System.out.println("Nope");
 				
 			}
@@ -69,7 +82,7 @@ public class main {
 		}
 		
 		if(!foundMatch){
-			SpelKort spelkort = new SpelKort();
+			
 			for(int i = 0; i < nrOfPlayers; i++){
 				spelkort.speladeKort(kortLista.get(0));
 				kortLista.remove(0);
@@ -78,7 +91,23 @@ public class main {
 			spelkort.skrivUt();
 			
 		} else {
+		 
+			for(int j = 0; j < counter; j++){ // counter instead of nrOfPlayers cause win might have interrupted the round
+				spelkort.speladeKort(kortLista.get(0));
+				kortLista.remove(0);
+			}
 			
+			counter = 0;
+			
+			System.out.println(spelkort.getSpeladeKortSize());
+			
+			for(int i = 0; i < spelkort.getSpeladeKortSize(); i++){
+				
+				String fargOvalor[] = spelkort.getSpeladeKort(i).split(" ");
+				kortLista.add(nameAnimal + ";" + fargOvalor[0] + " " + fargOvalor[1]);
+			}
+			skrivUt();
+			System.exit(0);
 		}
 	}
 	
