@@ -21,7 +21,7 @@ public class DjurList {
 	
 	public void addDjur(){ 
 	
-		String indata = showInputDialog(null, "Skriv in djur och läte (e.g Ko,Mu): ");
+		String indata = showInputDialog(null, "Skriv in djur och lï¿½te (e.g Ko,Mu): ");
 		
 		try{
 			if(indata != null){ // in case empty input or cancel
@@ -70,7 +70,7 @@ public class DjurList {
 		
 		Set<String> LinkedSet = new LinkedHashSet<String>(bufferedList);  // create LinkedHashset to eliminate duplicates
 		
-		for(String lines: LinkedSet){ // for testing purposes; print LinkedHashSet			
+		for(String lines: LinkedSet){ 			
 			String djurSound[] = lines.split("-");
 			Djur djur = new Djur(djurSound[0], djurSound[1]);
 			djurLists.add(djur);
