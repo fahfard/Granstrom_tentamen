@@ -29,8 +29,6 @@ public class main {
 		
 		boolean game = true; // main loop variable
 		
-		int checkIfCounter = 0;
-		
 		nrOfPlayers = createPlayers();
 		delautKort(nrOfPlayers);
 		
@@ -38,6 +36,7 @@ public class main {
 			
 			if(isPlayerNext()){
 				
+				checkPlayers();
 				checkAndList(nrOfPlayers);
 				showMessageDialog(null, "No one wins. Press ok to continue!");
 				
@@ -48,15 +47,9 @@ public class main {
 				}
 									
 			} else {
+				
 				Collections.rotate(kortLista, -1); //rotate list to find next player
 				System.out.println("Shuffled");
-				
-				if(checkIfCounter >= 52){
-					playerList.remove(theTurn);
-					nrOfPlayers--;
-					checkIfCounter = 0;
-				}
-				checkIfCounter++;
 			}
 		}
 	}	
@@ -116,6 +109,7 @@ public class main {
 		String temp[] = kortLista.get(0).split(";");
 		String temp2[] = temp[0].split(",");
 		String nextPlayer[] = temp2[0].split(": ");
+		
 		String inTurn[] = playerList.get(theTurn).split(",");
 		
 		if(inTurn[0].equals(nextPlayer[1]))
@@ -143,23 +137,56 @@ public class main {
 			looser = fPlayer[0];
 		}
 	}
+	private static void checkPlayers(){
+		
+		boolean isSame = true;
+		
+		while(isSame){
+			for(int i = 0; i < nrOfPlayers; i++){	
+				for(int j = 1; j < nrOfPlayers; j++){	
+					
+					String referenceValor[] = getFirstValor(i).split(";");
+					String referencePlayer[] = referenceValor[0].split(",");
+					String pValors[] = getFirstValor(j).split(";");
+					String pPlayer[] = pValors[0].split(",");
+				
+					//System.out.println(referencePlayer[0] + " " + pPlayer[0]);
+					
+					if(referencePlayer[0].equals(pPlayer[0]) && i != j){
+						Collections.swap(kortLista, j, kortLista.size()-1);
+						System.out.println("Found player match, shuffling!");
+					} else {
+						isSame = false;
+					}
+				}
+			}
+		}
+	}
 	
 	private static void checkAndList(int nrOfPlayers){
 		
 		boolean foundMatch = false;
 		
-		String referenceValor = getFirstValor(0, 1);
+		String referenceValor[] = getFirstValor(0).split(";");
+		String referenceFargValor[] = referenceValor[1].split(" ");
+		String referencePlayer[] = referenceValor[0].split(",");
 		
 		int counter = 1;
 			
 		for(int i = 1; i < nrOfPlayers; i++){
 			
-			String pValors = getFirstValor(i, 1);
-			System.out.println(referenceValor + " " + pValors);
+	
+			String pValors[] = getFirstValor(i).split(";");
+			String pFargValor[] = pValors[1].split(" ");
+			String pPlayer[] = pValors[0].split(",");
 			
-			if(referenceValor.equals(pValors)){
+			counter++;
+			
+			System.out.println(referencePlayer[0] + " Valör:" + referenceFargValor[1] + "\n Jämför mot: \n" + pPlayer[0] + " Valör:" + pFargValor[1]);
+			
+			if(referenceFargValor[1].equals(pFargValor[1])){
 				
-				System.out.println("Works!");
+				System.out.println("Match!");
 				foundMatch = true;
 				
 				/* randomize who wins */
@@ -175,7 +202,7 @@ public class main {
 			}  else {
 				
 				counter++;
-				System.out.println("Nope");
+				System.out.println("No Match");
 				
 			}
 			counter++;
@@ -223,14 +250,11 @@ public class main {
 	}
 	
 	
-	private static String getFirstValor(int index, int index2){
+	private static String getFirstValor(int index){
 			
-				String forstaSpelare = kortLista.get(index);
-				
-				String spelareOchKort[] = forstaSpelare.split(";"); // dela upp listan i spelare, id och djur mot farg och valor
-				String fargOchValor[] = spelareOchKort[1].split(" "); // dela upp farg och valor
-				
-				return fargOchValor[index2];
+				String Spelare = kortLista.get(index);
+			
+				return Spelare;
 		
 	}
 	
