@@ -29,6 +29,8 @@ public class main {
 		
 		boolean game = true; // main loop variable
 		
+		int counter = 0;
+		
 		nrOfPlayers = createPlayers();
 		delautKort(nrOfPlayers);
 		
@@ -36,7 +38,6 @@ public class main {
 			
 			if(isPlayerNext()){
 				
-				checkPlayers();
 				checkAndList(nrOfPlayers);
 				showMessageDialog(null, "No one wins. Press ok to continue!");
 				
@@ -45,15 +46,23 @@ public class main {
 				} else {
 					theTurn = 0;
 				}
-									
-			} else {
 				
+				counter=0;
+				
+			} else {
 				Collections.rotate(kortLista, -1); //rotate list to find next player
 				System.out.println("Shuffled");
+				counter++;
+				if(counter >= kortLista.size()){
+					dealNewCards();
+					/*playerList.remove(theTurn);
+					nrOfPlayers--;
+					theTurn--;*/
+				}
 			}
 		}
 	}	
-	
+
 	private static void dealNewCards(){
 		
 		while(kortLista.size() < 52){	
@@ -79,7 +88,7 @@ public class main {
 						String nextPlayer[] = temp2[0].split(": ");
 						String inTurn[] = lines.split(",");
 						
-						System.out.println("Sorting played cards!");
+						System.out.println("Sorting played cards!" + kortLista.size());
 						
 						if(inTurn[0].equals(nextPlayer[1])){
 							kortLista.add(spelkort.getSpeladeKort(0));
@@ -99,10 +108,10 @@ public class main {
 		boolean retVal = false;
 		
 		try{
-			for(int i = 0; i < nrOfPlayers; i++)
+			for(int i = 0; i < nrOfPlayers; i++){
 				kortLista.get(i);
+			}
 		} catch (IndexOutOfBoundsException e){
-			System.out.println("Deal new cards function here");
 			dealNewCards();	
 		}
 		
@@ -139,28 +148,40 @@ public class main {
 	}
 	private static void checkPlayers(){
 		
-		boolean isSame = true;
+		int turnNr = theTurn;
 		
-		while(isSame){
-			for(int i = 0; i < nrOfPlayers; i++){	
-				for(int j = 1; j < nrOfPlayers; j++){	
+		boolean foundMatch = false;
+		
+		for(int run = 0; run < playerList.size(); run++){
+			for(int j = 0; j < kortLista.size(); j++){	
 					
-					String referenceValor[] = getFirstValor(i).split(";");
-					String referencePlayer[] = referenceValor[0].split(",");
-					String pValors[] = getFirstValor(j).split(";");
-					String pPlayer[] = pValors[0].split(",");
-				
-					//System.out.println(referencePlayer[0] + " " + pPlayer[0]);
-					
-					if(referencePlayer[0].equals(pPlayer[0]) && i != j){
-						Collections.swap(kortLista, j, kortLista.size()-1);
-						System.out.println("Found player match, shuffling!");
-					} else {
-						isSame = false;
-					}
+				String referenceValor[] = playerList.get(turnNr).split(",");
+				String referencePlayer[] = referenceValor[0].split(",");
+				String pValors[] = getFirstValor(j).split(";");
+				String pPlayer[] = pValors[0].split(",");
+				String pPlayerAgain[] = pPlayer[0].split(": ");
+			
+				if(referencePlayer[0].equals(pPlayerAgain[1]) && run != j && foundMatch){
+					Collections.swap(kortLista, j, run);
+					foundMatch = true;
+				} else if(referencePlayer[0].equals(pPlayerAgain[1]) && run == j && !foundMatch){
+					foundMatch = false;
+				} else if(referencePlayer[0].equals(pPlayerAgain[1]) && run != j && !foundMatch){
+					Collections.swap(kortLista, j, run);
+					foundMatch = true;
 				}
 			}
-		}
+			
+			if(!foundMatch)
+				dealNewCards();
+			
+			if(turnNr >= nrOfPlayers-1){
+				turnNr = 0;
+			} else {
+				turnNr++;
+			}
+		}	
+		System.out.println("Done checking!");
 	}
 	
 	private static void checkAndList(int nrOfPlayers){
@@ -175,7 +196,8 @@ public class main {
 			
 		for(int i = 1; i < nrOfPlayers; i++){
 			
-	
+			checkPlayers();
+			
 			String pValors[] = getFirstValor(i).split(";");
 			String pFargValor[] = pValors[1].split(" ");
 			String pPlayer[] = pValors[0].split(",");
@@ -196,6 +218,19 @@ public class main {
 				System.out.println("Winner: " + winner);
 				System.out.println("Looser: " + looser);
 				
+				String turnToWinner[] = winner.split(": ");
+				
+				for(int setTurn = 0; setTurn < playerList.size(); setTurn++){
+				
+					String playerListWin[] = playerList.get(setTurn).split(": ");
+					
+					if(playerListWin[0].equals(turnToWinner[1])){
+						theTurn = setTurn;
+						theTurn--;
+					}
+				}
+				
+				
 				counter++;
 				break;
 				
@@ -211,20 +246,27 @@ public class main {
 		if(!foundMatch){
 			
 			for(int i = 0; i < nrOfPlayers; i++){
-				spelkort.speladeKort(kortLista.get(0));
-				kortLista.remove(0);
+				try{
+					spelkort.speladeKort(kortLista.get(0));
+					kortLista.remove(0);
+				} catch (IndexOutOfBoundsException e){
+					dealNewCards();
+				}
 			}
 			
-			spelkort.skrivUt();
+			//spelkort.skrivUt();
 			System.out.println("-----kortLista------");
 			skrivUt();
 			
 		} else {
 			
-			
 			for(int j = 0; j < counter; j++){ // counter instead of nrOfPlayers cause win might have interrupted the round
-				spelkort.speladeKort(kortLista.get(0));
-				kortLista.remove(0);
+				try{
+					spelkort.speladeKort(kortLista.get(0));
+					kortLista.remove(0);
+				} catch (IndexOutOfBoundsException e){
+					dealNewCards();
+				}
 			}
 			
 			for(int k = 0; k < spelkort.getSpeladeKortSize(); k++){
@@ -233,16 +275,15 @@ public class main {
 				String fargOvalor[] = spelkortSpelareKort[1].split(" ");
 												
 				if(spelkortSpelareKort[0].equals(winner)||spelkortSpelareKort[0].equals(looser)){
-					//kortLista.add(winner + ";" + fargOvalor[0] + " " + fargOvalor[1]);
 					spelkort.vunnetSpelatKort(winner + ";" + fargOvalor[0] + " " + fargOvalor[1]);
 					spelkort.removeEntry(k);
-					k=0; // to ensure the whole list is checked
+					k=0; 
 				}
 			} 
 			
 			spelkort.reverseList(); // korten i rätt ordning
 				
-			spelkort.skrivUt();
+			//spelkort.skrivUt();
 			System.out.println("-----kortLista------");
 			skrivUt();
 		}
