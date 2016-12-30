@@ -13,6 +13,8 @@ public class main {
 	public static SpelKort spelkort = new SpelKort();
 	
 	public static String winner = "", looser = "";
+	
+	public static int theTurn = 0;
 									
 	/*															   \ \
 	 *            ______                     ____    ______  ___    
@@ -27,21 +29,14 @@ public class main {
 		
 		boolean game = true; // main loop variable
 		
-		int theTurn = 0, checkIfCounter = 0;
+		int checkIfCounter = 0;
 		
 		int nrOfPlayers = createPlayers();
 		delautKort(nrOfPlayers);
-	
-		System.out.println(kortLista.size()); // for testing purposes
 		
 		while(game){ // main loop
 			
-			String temp[] = kortLista.get(0).split(";");
-			String temp2[] = temp[0].split(",");
-			String nextPlayer[] = temp2[0].split(": ");
-			String inTurn[] = playerList.get(theTurn).split(",");
-
-			if(inTurn[0].equals(nextPlayer[1])){
+			if(isPlayerNext()){
 				
 				checkAndList(nrOfPlayers);
 				showMessageDialog(null, "No one wins. Press ok to continue!");
@@ -66,6 +61,77 @@ public class main {
 		}
 	}	
 	
+	private static void dealNewCards(){
+		
+		boolean found = false;
+		
+		for(String lines: playerList){
+			for(int i = 0; i < spelkort.getWinCardsSize(); i ++){
+				
+				String temp[] = spelkort.getWinCard(i).split(";");
+				String temp2[] = temp[0].split(",");
+				String nextPlayer[] = temp2[0].split(": ");
+				String inTurn[] = lines.split(",");
+				
+				System.out.println(inTurn[0] + " " + nextPlayer[1]);
+				
+				if(inTurn[0].equals(nextPlayer[1])){
+					kortLista.add(spelkort.getWinCard(i));
+					spelkort.removeWinIndex(i);
+					i=0; //?
+					found = true;
+				}
+			}
+			if(!found){
+				
+				// do this next
+				
+			}
+		}
+	}
+	
+	private static boolean isPlayerNext(){
+		
+		boolean retVal = false;
+		
+		try{
+			kortLista.get(0);
+		} catch (IndexOutOfBoundsException e){
+			System.out.println("Deal new cards function here");
+			dealNewCards();
+		}
+		
+		String temp[] = kortLista.get(0).split(";");
+		String temp2[] = temp[0].split(",");
+		String nextPlayer[] = temp2[0].split(": ");
+		String inTurn[] = playerList.get(theTurn).split(",");
+		
+		if(inTurn[0].equals(nextPlayer[1]))
+			retVal = true;
+		
+		return retVal;
+	}
+	
+	private static void randomWin(int index){
+	
+		String fPlayer[] = kortLista.get(0).split(";");
+		String opponent[] = kortLista.get(index).split(";");
+		
+		String whoWins[] = {fPlayer[0], opponent[0]};
+		
+		int randomNum = 0 + (int)(Math.random() * 2); 
+		
+		String playerID = whoWins[randomNum];
+		
+		winner = playerID; // keep track of who wins
+		
+		if(winner.equals(fPlayer[0])){
+			looser = opponent[0];
+		} else if (winner.equals(opponent[0])){
+			looser = fPlayer[0];
+		}
+	}
+	
 	private static void checkAndList(int nrOfPlayers){
 		
 		boolean foundMatch = false;
@@ -86,22 +152,7 @@ public class main {
 				
 				/* randomize who wins */
 				
-				String fPlayer[] = kortLista.get(0).split(";");
-				String opponent[] = kortLista.get(i).split(";");
-				
-				String whoWins[] = {fPlayer[0], opponent[0]};
-				
-				int randomNum = 0 + (int)(Math.random() * 2); 
-				
-				String playerID = whoWins[randomNum];
-				
-				winner = playerID; // keep track of who wins
-				
-				if(winner.equals(fPlayer[0])){
-					looser = opponent[0];
-				} else if (winner.equals(opponent[0])){
-					looser = fPlayer[0];
-				}
+				randomWin(i);
 				
 				System.out.println("Winner: " + winner);
 				System.out.println("Looser: " + looser);
@@ -130,13 +181,12 @@ public class main {
 			skrivUt();
 			
 		} else {
-					
+			
+			
 			for(int j = 0; j < counter; j++){ // counter instead of nrOfPlayers cause win might have interrupted the round
 				spelkort.speladeKort(kortLista.get(0));
 				kortLista.remove(0);
 			}
-			
-			spelkort.reverseList(); // korten i rätt ordning
 			
 			for(int k = 0; k < spelkort.getSpeladeKortSize(); k++){
 				
@@ -144,11 +194,14 @@ public class main {
 				String fargOvalor[] = spelkortSpelareKort[1].split(" ");
 												
 				if(spelkortSpelareKort[0].equals(winner)||spelkortSpelareKort[0].equals(looser)){
-					kortLista.add(winner + ";" + fargOvalor[0] + " " + fargOvalor[1]);
+					//kortLista.add(winner + ";" + fargOvalor[0] + " " + fargOvalor[1]);
+					spelkort.vunnetSpelatKort(winner + ";" + fargOvalor[0] + " " + fargOvalor[1]);
 					spelkort.removeEntry(k);
 					k=0; // to ensure the whole list is checked
 				}
 			} 
+			
+			spelkort.reverseList(); // korten i rätt ordning
 				
 			spelkort.skrivUt();
 			System.out.println("-----kortLista------");

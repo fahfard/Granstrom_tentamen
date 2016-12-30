@@ -7,13 +7,34 @@ public class SpelKort implements SpelKortGranssnitt {
 	private String farg[] = { "hjarter", "ruter", "klover", "spader" };
 	private String valor[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" } ;
 	
-	private List<String> lagtKort = new ArrayList<String>();
+	private List<String> vunnetKort = new ArrayList<String>();
 	private List<String> vandtKort = new ArrayList<String>();
 	private List<String> kortPacka = new ArrayList<String>();
 	
+	public void vunnetSpelatKort(String inKort){
+		
+		String spelaresKort[] = inKort.split(";");
+		String fargValor[] = spelaresKort[1].split(" ");
+		
+		vunnetKort.add(spelaresKort[0] + ";" + fargValor[0] + " " + fargValor[1]);
+	}
+	
+	public int getWinCardsSize(){
+		return vunnetKort.size();
+	}
+	
+	public String getWinCard(int index){
+		return vunnetKort.get(index);
+	}
+	
+	public void removeWinIndex(int index){
+		vunnetKort.remove(index);
+	}
+	/* lagda kort härifrån */
+	
 	public void speladeKort(String inKort){
 
-		String spelaresKort[] = inKort.split(";");
+	    String spelaresKort[] = inKort.split(";");
 		String fargValor[] = spelaresKort[1].split(" ");
 		
 		vandtKort.add(spelaresKort[0] + ";" + fargValor[0] + " " + fargValor[1]);
