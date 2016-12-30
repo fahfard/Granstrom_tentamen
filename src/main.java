@@ -14,7 +14,7 @@ public class main {
 	
 	public static String winner = "", looser = "";
 	
-	public static int theTurn = 0;
+	public static int theTurn = 0, nrOfPlayers = 0;
 									
 	/*															   \ \
 	 *            ______                     ____    ______  ___    
@@ -31,7 +31,7 @@ public class main {
 		
 		int checkIfCounter = 0;
 		
-		int nrOfPlayers = createPlayers();
+		nrOfPlayers = createPlayers();
 		delautKort(nrOfPlayers);
 		
 		while(game){ // main loop
@@ -51,41 +51,52 @@ public class main {
 				Collections.rotate(kortLista, -1); //rotate list to find next player
 				System.out.println("Shuffled");
 				
-				if(checkIfCounter >= nrOfPlayers){
+				if(checkIfCounter >= 52){
 					playerList.remove(theTurn);
 					nrOfPlayers--;
+					checkIfCounter = 0;
 				}
 				checkIfCounter++;
 			}
-			checkIfCounter = 0;
 		}
 	}	
 	
 	private static void dealNewCards(){
 		
-		boolean found = false;
-		
-		for(String lines: playerList){
-			for(int i = 0; i < spelkort.getWinCardsSize(); i ++){
+		while(kortLista.size() < 52){	
+			for(String lines: playerList){
 				
-				String temp[] = spelkort.getWinCard(i).split(";");
-				String temp2[] = temp[0].split(",");
-				String nextPlayer[] = temp2[0].split(": ");
-				String inTurn[] = lines.split(",");
-				
-				System.out.println(inTurn[0] + " " + nextPlayer[1]);
-				
-				if(inTurn[0].equals(nextPlayer[1])){
-					kortLista.add(spelkort.getWinCard(i));
-					spelkort.removeWinIndex(i);
-					i=0; //?
-					found = true;
+				try{
+					String temp[] = spelkort.getWinCard(0).split(";");
+					String temp2[] = temp[0].split(",");
+					String nextPlayer[] = temp2[0].split(": ");
+					String inTurn[] = lines.split(",");
+						
+					System.out.println("Sorting winners list!");
+						
+					if(inTurn[0].equals(nextPlayer[1])){
+						kortLista.add(spelkort.getWinCard(0));
+						spelkort.removeWinIndex(0);
+						
+					}
+				} catch (IndexOutOfBoundsException e){
+					try{
+						String temp[] = spelkort.getSpeladeKort(0).split(";");
+						String temp2[] = temp[0].split(",");
+						String nextPlayer[] = temp2[0].split(": ");
+						String inTurn[] = lines.split(",");
+						
+						System.out.println("Sorting played cards!");
+						
+						if(inTurn[0].equals(nextPlayer[1])){
+							kortLista.add(spelkort.getSpeladeKort(0));
+							spelkort.removeEntry(0);
+					
+						}
+					} catch (IndexOutOfBoundsException ex){
+						System.out.println(kortLista.size());
+					}
 				}
-			}
-			if(!found){
-				
-				// do this next
-				
 			}
 		}
 	}
@@ -95,10 +106,11 @@ public class main {
 		boolean retVal = false;
 		
 		try{
-			kortLista.get(0);
+			for(int i = 0; i < nrOfPlayers; i++)
+				kortLista.get(i);
 		} catch (IndexOutOfBoundsException e){
 			System.out.println("Deal new cards function here");
-			dealNewCards();
+			dealNewCards();	
 		}
 		
 		String temp[] = kortLista.get(0).split(";");
@@ -201,7 +213,7 @@ public class main {
 				}
 			} 
 			
-			spelkort.reverseList(); // korten i rÃ¤tt ordning
+			spelkort.reverseList(); // korten i rätt ordning
 				
 			spelkort.skrivUt();
 			System.out.println("-----kortLista------");
