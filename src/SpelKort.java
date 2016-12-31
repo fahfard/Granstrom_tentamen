@@ -30,7 +30,7 @@ public class SpelKort implements SpelKortGranssnitt {
 	public void removeWinIndex(int index){
 		vunnetKort.remove(index);
 	}
-	/* lagda kort h√§rifr√•n */
+	/* lagda kort h‰rifrÂn */
 	
 	public void speladeKort(String inKort){
 

@@ -49,7 +49,7 @@ public class main {
 			if(isPlayerNext()){
 				
 				checkAndList(nrOfPlayers);
-				showMessageDialog(null, "Press ok to continue!");
+				saveOrResume();
 				
 				if(theTurn < nrOfPlayers-1){ // keep track of who's in turn 
 					theTurn++;  
@@ -78,6 +78,30 @@ public class main {
 			game=false;
 		}
 	}	
+	
+	private static void saveOrResume(){
+		
+		Object[] options = {"Fortsätt","Spara","Sluta"};
+		
+		int chooseOptions = showOptionDialog(null, 
+				"Save or Quit?",
+				"Save Quit", 
+				YES_NO_OPTION,
+				QUESTION_MESSAGE,
+				null,
+				options,
+				options[0]);
+		
+		if(chooseOptions == 0){
+			// do nothing
+		} else if(chooseOptions == 1){
+			saveGame();
+			showMessageDialog(null, "Game Saved. Press ok to continue...");
+		} else if(chooseOptions == 2){
+			System.exit(0);
+		}
+		
+	}
 	
 	private static boolean lookForPlayer(){ // om inte spelaren finns i huvudlistan, kolla de andra listorna
 		
@@ -437,6 +461,54 @@ public class main {
 			System.out.println(e);
 		}
 	} 
+	
+	public static void saveGame(){ // spara spelet
+		try {
+
+			String table = "";
+			FileWriter fw = new FileWriter("menageri.save",true);
+	    	BufferedWriter bw = new BufferedWriter(fw);
+	
+	    	bw.write(""); // empty the savefile
+	    	
+	    	table += "Vem står i tur: " + theTurn + System.getProperty("line.separator");
+	    	table += "Spelar Listan: " + System.getProperty("line.separator");
+	    	
+			for(String lines: playerList){
+				table += lines + System.getProperty("line.separator");
+			}
+		
+			bw.write(table + System.getProperty("line.separator"));
+			table = "";
+			
+			table += "Rådande kortlista: " + System.getProperty("line.separator");
+			
+			for(String lines: kortLista){
+				table += lines + System.getProperty("line.separator"); 
+			}
+			
+			bw.write(table + System.getProperty("line.separator"));
+			table = "";
+			
+			table += "Spelade kort hittills: " + System.getProperty("line.separator");
+			
+			for(int i = 0; i < spelkort.getSpeladeKortSize(); i++){
+				table += spelkort.getSpeladeKort(i) + System.getProperty("line.separator");
+			}
+			
+			for(int j = 0; j < spelkort.getWinCardsSize(); j++){
+				table += spelkort.getWinCard(j) + System.getProperty("line.separator");
+			}
+			
+			bw.write(table + System.getProperty("line.separator"));
+			table = "";
+			
+			bw.close();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
 
 
