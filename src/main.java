@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +35,12 @@ public class main {
 		
 		int counter = 0;
 		
+		try {
+			save("<--------------------------------Ny omgång börjar!------------------------------------>");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		nrOfPlayers = createPlayers();
 		delautKort(nrOfPlayers);
 		
@@ -52,7 +62,6 @@ public class main {
 			} else {
 				
 				Collections.rotate(kortLista, -1); //rotate list to find next player
-				System.out.println("Shuffled");
 				counter++;
 				if(counter >= kortLista.size()){
 					if(lookForPlayer()){
@@ -70,7 +79,7 @@ public class main {
 		}
 	}	
 	
-	private static boolean lookForPlayer(){
+	private static boolean lookForPlayer(){ // om inte spelaren finns i huvudlistan, kolla de andra listorna
 		
 		String inTurn[] = playerList.get(theTurn).split(",");
 		
@@ -97,7 +106,7 @@ public class main {
 		return false;
 	}
 
-	private static void dealNewCards(){
+	private static void dealNewCards(){ // dela ut nya kort när korten håller på ta slut
 		
 		while(kortLista.size() < 52){	
 			for(String lines: playerList){
@@ -107,8 +116,6 @@ public class main {
 					String temp2[] = temp[0].split(",");
 					String nextPlayer[] = temp2[0].split(": ");
 					String inTurn[] = lines.split(",");
-						
-					//System.out.println("Sorting winners list!");
 						
 					if(inTurn[0].equals(nextPlayer[1])){
 						kortLista.add(spelkort.getWinCard(0));
@@ -122,22 +129,20 @@ public class main {
 						String nextPlayer[] = temp2[0].split(": ");
 						String inTurn[] = lines.split(",");
 						
-						//System.out.println("Sorting played cards!" + kortLista.size());
-						
 						if(inTurn[0].equals(nextPlayer[1])){
 							kortLista.add(spelkort.getSpeladeKort(0));
 							spelkort.removeEntry(0);
 					
 						}
 					} catch (IndexOutOfBoundsException ex){
-						System.out.println(kortLista.size());
+						// do nothing
 					}
 				}
 			}
 		}
 	}
 	
-	private static boolean isPlayerNext(){
+	private static boolean isPlayerNext(){ //kolla om samma spelare som är i tur också är nästa i listan
 		
 		boolean retVal = false;
 		
@@ -161,7 +166,7 @@ public class main {
 		return retVal;
 	}
 	
-	private static void randomWin(int index){
+	private static void randomWin(int index){ // random vinnar då samma valör händer
 	
 		String fPlayer[] = kortLista.get(0).split(";");
 		String opponent[] = kortLista.get(index).split(";");
@@ -180,7 +185,7 @@ public class main {
 			looser = fPlayer[0];
 		}
 	}
-	private static void checkPlayers(){
+	private static void checkPlayers(){ // kolla att spelarna är på rätt plats i listan
 		
 		int turnNr = theTurn;
 		
@@ -209,7 +214,7 @@ public class main {
 		}	
 	}
 	
-	private static void checkAndList(int nrOfPlayers){
+	private static void checkAndList(int nrOfPlayers){ // hitta samma valör och sortering av listorna
 		
 		boolean foundMatch = false;
 		
@@ -218,6 +223,12 @@ public class main {
 		String referenceValor[] = kortLista.get(0).split(";");
 		String referenceFargValor[] = referenceValor[1].split(" ");
 		String referencePlayer[] = referenceValor[0].split(",");
+		
+		try {
+			save(referencePlayer[0] + " lyfter " + referenceFargValor[0] + " " + referenceFargValor[1] + "\n");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		
 		int counter = 1;
 			
@@ -233,6 +244,12 @@ public class main {
 			
 			if(!referencePlayer[0].equals(pPlayer[0]))
 				System.out.println(referencePlayer[0] + " Valör:" + referenceFargValor[1] + "\n Jämför mot: \n" + pPlayer[0] + " Valör:" + pFargValor[1] + "\n");
+			
+			try {
+				save(referencePlayer[0] + " Valör:" + referenceFargValor[1] + "\n Jämför mot: \n" + pPlayer[0] + " Valör:" + pFargValor[1] + "\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			if(referenceFargValor[1].equals(pFargValor[1]) && !referencePlayer[0].equals(pPlayer[0])){
 				
@@ -257,6 +274,13 @@ public class main {
 						theTurn--;
 					}
 				}
+				
+				try {
+					save(winner + " har vunnit omgången! " + looser + " var långsammare. Turen går till vinnaren! Turen i ordningen är " + theTurn);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
 				counter++;
 				break;
 				
@@ -280,8 +304,8 @@ public class main {
 				}
 			}
 			
-			/*System.out.println("-----kortLista------");
-			skrivUt();*/
+			
+		//	skrivUt(); <- debug
 			
 		} else {
 			
@@ -308,12 +332,12 @@ public class main {
 				}
 			} 
 			spelkort.reverseList(); // korten i rätt ordning
-			/*skrivUt();*/
+		//	skrivUt(); <- debug
 		}
 		System.out.println("------------------------------------------------------");
 	}
 		
-	private static void delautKort(int nrOfPlayers){
+	private static void delautKort(int nrOfPlayers){ // dela ut random kort åt alla spelare
 		
 		SpelKort spelkort = new SpelKort();
 		spelkort.createDeck();
@@ -336,7 +360,7 @@ public class main {
 		}
 	}
 	
-	public static int createPlayers(){
+	public static int createPlayers(){ // skapa spelare
 		
 		String indata = showInputDialog(null, "Enter number of players: ");
 		
@@ -396,6 +420,23 @@ public class main {
 		
 		return 0;
 	}
+	public static void save(String indata) throws IOException { 	// logfil
+		
+		try {
+
+			String table = "";
+			FileWriter fw = new FileWriter("menageri.log",true);
+	    	BufferedWriter bw = new BufferedWriter(fw);
+	
+			table += indata;
+			
+			bw.write(table + System.getProperty("line.separator"));
+			bw.close();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	} 
 }
 
 
